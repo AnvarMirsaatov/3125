@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Products</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body class="bg-gray-100 text-gray-900">
+    <div class="w-[90%] max-w-[1200px] mx-auto py-12">
+      <!-- FILTERS -->
+      <div class="bg-white p-5 rounded-xl shadow-sm mb-8 flex flex-wrap gap-4">
+        <!-- TITLE -->
+        <input
+          type="text"
+          id="search"
+          placeholder="Search by title..."
+          class="h-12 px-4 border border-gray-300 rounded-lg outline-none focus:border-blue-500 flex-1 min-w-[250px]"
+        />
+
+        <!-- CATEGORY -->
+        <select
+          id="category"
+          class="h-12 px-4 border border-gray-300 rounded-lg outline-none focus:border-blue-500 bg-white min-w-[180px]"
+        >
+          <option value="all">All categories</option>
+          <option value="men's clothing">Men's clothing</option>
+          <option value="women's clothing">Women's clothing</option>
+          <option value="jewelery">Jewelery</option>
+          <option value="electronics">Electronics</option>
+        </select>
+
+        <!-- RATING -->
+        <select
+          id="rating"
+          class="h-12 px-4 border border-gray-300 rounded-lg outline-none focus:border-blue-500 bg-white min-w-[180px]"
+        >
+          <option value="all">All ratings</option>
+          <option value="4">4+ rating</option>
+          <option value="3">3+ rating</option>
+          <option value="2">2+ rating</option>
+          <option value="1">1+ rating</option>
+        </select>
+
+        <!-- PRICE -->
+        <select
+          id="price"
+          class="h-12 px-4 border border-gray-300 rounded-lg outline-none focus:border-blue-500 bg-white min-w-[180px]"
+        >
+          <option value="all">All prices</option>
+          <option value="0-50">$0 - $50</option>
+          <option value="50-100">$50 - $100</option>
+          <option value="100-200">$100 - $200</option>
+          <option value="200+">$200+</option>
+        </select>
+        <button
+          class="px-[10px] py-[5px] bg-green-500 text-white rounded-2xl hover:bg-white hover:text-green-500 border-green-500 border-1"
+          id="btn_modal"
+        >
+          Create product
+        </button>
+      </div>
+      <h1></h1>
+      <!-- PRODUCTS -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        id="products"
+      >
+        <!-- CARD -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-md hover:-translate-y-1 hover:shadow-xl transition duration-300"
+        >
+          <!-- IMAGE -->
+          <div class="h-[280px] p-8 flex justify-center items-center bg-white">
+            <img
+              src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png"
+              alt="Backpack"
+              class="w-full h-full object-contain"
+            />
+          </div>
+
+          <!-- CONTENT -->
+          <div class="p-5">
+            <!-- CATEGORY -->
+            <span
+              class="inline-block bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full text-xs capitalize mb-3"
+            >
+              men's clothing
+            </span>
+
+            <!-- TITLE -->
+            <h2 class="text-lg font-semibold leading-6 mb-3">
+              Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+            </h2>
+
+            <!-- DESCRIPTION -->
+            <p class="text-gray-500 text-sm leading-6 mb-4">
+              Your perfect pack for everyday use and walks in the forest. Stash
+              your laptop (up to 15 inches) in the padded sleeve, your everyday.
+            </p>
+
+            <!-- RATING -->
+            <div class="flex justify-between items-center text-sm mb-5">
+              <span> ⭐ 3.9 </span>
+
+              <span class="text-gray-400"> 120 reviews </span>
+            </div>
+
+            <!-- BOTTOM -->
+            <div class="flex justify-between items-center">
+              <h3 class="text-2xl font-bold text-green-600">$109.95</h3>
+
+              <button
+                class="bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 active:scale-95 transition cursor-pointer"
+              >
+                View Product
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modalni ochish -->
+
+    <!-- Modal -->
+    <!-- Modal -->
+    <div
+      class="fixed hidden inset-0 z-50 items-center justify-center p-4 peer-checked:flex"
+      id="wrapper_modal"
+    >
+      <!-- Orqa fon -->
+      <label
+        for="modal-toggle"
+        class="absolute inset-0 cursor-pointer bg-black/50"
+      ></label>
+
+      <!-- Modal oynasi -->
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        class="relative max-h-[90vh] w-full left-120 top-20 max-w-xl overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl"
+      >
+        <div class="mb-6 flex items-center justify-between">
+          <h2 id="modal-title" class="text-xl font-bold text-gray-900">
+            Mahsulot qo‘shish
+          </h2>
+
+          <label
+            for="modal-toggle"
+            id="close_modal_x"
+            aria-label="Yopish"
+            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gray-100 text-2xl text-gray-500 hover:bg-gray-200"
+          >
+            &times;
+          </label>
+        </div>
+
+        <form action="/products" method="post" class="space-y-4">
+          <!-- Mahsulot nomi -->
+          <div>
+            <label
+              for="title"
+              class="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Mahsulot nomi
+            </label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              required
+              placeholder="Fjallraven - Foldsack No. 1 Backpack"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            />
+          </div>
+
+          <!-- Narxi va kategoriya -->
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-700"
+              >
+                Narxi ($)
+              </label>
+              <input
+                id="Modal_price"
+                name="price"
+                type="number"
+                min="0"
+                step="0.01"
+                required
+                placeholder="109.95"
+                class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+
+            <div>
+              <label
+                for="category"
+                class="mb-2 block text-sm font-medium text-gray-700"
+              >
+                Kategoriya
+              </label>
+              <select
+                id="category"
+                name="category"
+                required
+                class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              >
+                <option value="">Tanlang</option>
+                <option value="men's clothing">Erkaklar kiyimi</option>
+                <option value="women's clothing">Ayollar kiyimi</option>
+                <option value="jewelery">Zargarlik buyumlari</option>
+                <option value="electronics">Elektronika</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Tavsifi -->
+          <div>
+            <label
+              for="description"
+              class="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Mahsulot tavsifi
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              required
+              placeholder="Mahsulot haqida ma’lumot..."
+              class="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            ></textarea>
+          </div>
+
+          <!-- Rasm -->
+          <div>
+            <label
+              for="image"
+              class="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Rasm havolasi
+            </label>
+            <input
+              id="image"
+              name="image"
+              type="url"
+              required
+              placeholder="https://example.com/product.png"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            />
+          </div>
+
+          <!-- Reyting -->
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label
+                for="rate"
+                class="mb-2 block text-sm font-medium text-gray-700"
+              >
+                Reyting (0–5)
+              </label>
+              <input
+                id="rate"
+                name="rating[rate]"
+                type="number"
+                min="0"
+                max="5"
+                step="0.1"
+                required
+                placeholder="3.9"
+                class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+
+            <div>
+              <label
+                for="count"
+                class="mb-2 block text-sm font-medium text-gray-700"
+              >
+                Sharhlar soni
+              </label>
+              <input
+                id="count"
+                name="rating[count]"
+                type="number"
+                min="0"
+                step="1"
+                required
+                placeholder="120"
+                class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+          </div>
+
+          <!-- Tugmalar -->
+          <div class="flex justify-end gap-3 border-t border-gray-100 pt-5">
+            <label
+              for="modal-toggle"
+              id="cancel_modal"
+              class="cursor-pointer rounded-xl bg-gray-100 px-5 py-3 font-medium text-gray-700 hover:bg-gray-200"
+            >
+              Bekor qilish
+            </label>
+
+            <button
+              type="submit"
+              id="submit_modal"
+              class="rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700"
+            >
+              Saqlash
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

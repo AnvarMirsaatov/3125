@@ -1,0 +1,26 @@
+
+let api = "https://6ac63fd4bea0e72cf5c8c181.mockapi.io/Product";
+let obj = {
+  id: 1,
+  title: "test",
+  price: 109.95,
+  description: "test descc",
+  category: "men's clothing",
+  image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
+  rating: {
+    rate: 3.9,
+    count: 120,
+  },
+};
+function post() {
+  fetch(api, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(obj),
+  })
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((err) => console.log(err));
+}
+
+localStorage.setItem("obj", JSON.stringify(obj));
